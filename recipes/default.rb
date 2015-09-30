@@ -1,8 +1,11 @@
-#
-# Cookbook Name:: dotfiles-cookbook
-# Recipe:: default
-#
-# Copyright 2015, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
+destination = node[:dotfiles_destination]
+repo_url    = node[:dotfiles_repo_url]
+
+execute "git clone #{repo_url} ~/.dotfiles" do
+  cwd '~/'
+  not_if { File.exists?(File.expand_path(node[:dotfiles_url])) }
+end
+
+execute './install.sh' do
+  cwd destination
+end
