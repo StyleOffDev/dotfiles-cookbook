@@ -1,0 +1,1 @@
+gem 'soloist', require: false
